@@ -9,7 +9,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.net.URI;
 
 @RestController
 @RequestMapping("/api/artists")
@@ -22,9 +25,9 @@ public class ArtistController {
     }
 
     @PostMapping
-    @ResponseStatus(code = HttpStatus.CREATED)
-    public Artist create(@Valid @RequestBody ArtistRequest artistRequest) {
-        return service.create(artistRequest);
+    public ResponseEntity<Artist> create(@Valid @RequestBody ArtistRequest artistRequest) {
+        Artist artist = service.create(artistRequest);
+        return ResponseEntity.created(URI.create("/api/artists/" + artist.getId())).body(artist);
     }
 
     @PutMapping("/{id}")
@@ -43,7 +46,7 @@ public class ArtistController {
     }
 
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
-    @PostMapping("/{id}/inactivate")
+    @DeleteMapping("/{id}")
     public void inactivate(@PathVariable Long id) {
         service.inactivateById(id);
     }
