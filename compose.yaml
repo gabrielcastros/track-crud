@@ -30,5 +30,14 @@ services:
       - "8080:8080"
       - "5005:5005"
 
+  builder:
+    image: maven:3.9-eclipse-temurin-25
+    network_mode: host
+    working_dir: /workspace
+    volumes:
+      - .:/workspace
+    command: ["mvn", "-B", "verify"]
+    profiles: ["tools"]
+
 volumes:
   pgdata:
