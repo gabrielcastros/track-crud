@@ -29,7 +29,7 @@ public class Artist extends DefaultEntity {
         artist.status = ContentStatus.ACTIVE;
         artist.apply(request);
         artist.setCreatedAt(OffsetDateTime.now());
-        artist.setCreatedBy("default_user");
+        artist.setCreatedBy("admin");
         return artist;
     }
 
