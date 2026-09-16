@@ -13,8 +13,6 @@ cp .env.example .env
 docker compose up --build
 ```
 
-As portas padrão são 8001, 5452 (api e banco)
-
 Testes:
 
 ```bash
