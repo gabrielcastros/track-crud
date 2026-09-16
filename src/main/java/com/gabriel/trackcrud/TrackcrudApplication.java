@@ -8,7 +8,7 @@ import org.springframework.data.web.config.EnableSpringDataWebSupport;
 import static org.springframework.data.web.config.EnableSpringDataWebSupport.PageSerializationMode.VIA_DTO;
 
 @SpringBootApplication
-@EntityScan("domain")
+@EntityScan("com/gabriel/trackcrud/domain")
 @EnableSpringDataWebSupport(pageSerializationMode = VIA_DTO)
 public class TrackcrudApplication {
 

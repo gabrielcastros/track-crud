@@ -1,8 +1,8 @@
 package com.gabriel.trackcrud.artist;
 
-import domain.Artist;
-import domain.ArtistRequest;
-import domain.ContentStatus;
+import com.gabriel.trackcrud.domain.Artist;
+import com.gabriel.trackcrud.domain.ArtistRequest;
+import com.gabriel.trackcrud.domain.ContentStatus;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;

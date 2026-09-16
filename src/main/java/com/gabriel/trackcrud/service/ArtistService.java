@@ -2,9 +2,9 @@ package com.gabriel.trackcrud.service;
 
 import com.gabriel.trackcrud.repository.ArtistRepository;
 import com.gabriel.trackcrud.shared.error.NotFoundException;
-import domain.Artist;
-import domain.ArtistRequest;
-import domain.ContentStatus;
+import com.gabriel.trackcrud.domain.Artist;
+import com.gabriel.trackcrud.domain.ArtistRequest;
+import com.gabriel.trackcrud.domain.ContentStatus;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;

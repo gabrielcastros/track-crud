@@ -1,7 +1,7 @@
 package com.gabriel.trackcrud.repository;
 
-import domain.Artist;
-import domain.ContentStatus;
+import com.gabriel.trackcrud.domain.Artist;
+import com.gabriel.trackcrud.domain.ContentStatus;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

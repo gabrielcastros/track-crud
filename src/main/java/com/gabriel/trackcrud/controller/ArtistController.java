@@ -1,8 +1,10 @@
 package com.gabriel.trackcrud.controller;
 
 import com.gabriel.trackcrud.service.ArtistService;
-import domain.Artist;
-import domain.ArtistRequest;
+import com.gabriel.trackcrud.domain.Artist;
+import com.gabriel.trackcrud.domain.ArtistRequest;
+import com.gabriel.trackcrud.domain.ArtistResponse;
+import com.gabriel.trackcrud.domain.ArtistResponseAssembler;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -19,30 +21,34 @@ import java.net.URI;
 public class ArtistController {
 
     private final ArtistService service;
+    private final ArtistResponseAssembler assembler;
 
-    public ArtistController(ArtistService service) {
+    public ArtistController(ArtistService service, ArtistResponseAssembler assembler) {
         this.service = service;
+        this.assembler = assembler;
     }
 
     @PostMapping
-    public ResponseEntity<Artist> create(@Valid @RequestBody ArtistRequest artistRequest) {
+    public ResponseEntity<ArtistResponse> create(@Valid @RequestBody ArtistRequest artistRequest) {
         Artist artist = service.create(artistRequest);
-        return ResponseEntity.created(URI.create("/api/artists/" + artist.getId())).body(artist);
+        return ResponseEntity.created(URI.create("/api/artists/" + artist.getId())).body(assembler.toResponse(artist));
     }
 
     @PutMapping("/{id}")
-    public Artist update(@PathVariable Long id, @Valid @RequestBody ArtistRequest artistRequest) { return service.update(id, artistRequest); }
+    public ResponseEntity<ArtistResponse> update(@PathVariable Long id, @Valid @RequestBody ArtistRequest artistRequest) {
+        return ResponseEntity.ok(assembler.toResponse(service.update(id, artistRequest)));
+    }
 
     @GetMapping
-    public Page<Artist> list(@RequestParam(defaultValue = "") String q,
-                             @RequestParam(defaultValue = "") String country,
-                             @PageableDefault(size = 20, sort = "id", direction = Sort.Direction.ASC) Pageable pageable) {
-        return service.list(q, country, pageable);
+    public ResponseEntity<Page<ArtistResponse>> list(@RequestParam(defaultValue = "") String q,
+                                                     @RequestParam(defaultValue = "") String country,
+                                                     @PageableDefault(size = 20, sort = "id", direction = Sort.Direction.ASC) Pageable pageable) {
+        return ResponseEntity.ok(service.list(q, country, pageable).map(assembler::toResponse));
     }
 
     @GetMapping("/{id}")
-    public Artist findById(@PathVariable Long id) {
-        return service.findById(id);
+    public ResponseEntity<ArtistResponse> findById(@PathVariable Long id) {
+        return ResponseEntity.ok(assembler.toResponse(service.findById(id)));
     }
 
     @ResponseStatus(code = HttpStatus.NO_CONTENT)

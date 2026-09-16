@@ -1,4 +1,4 @@
-package domain;
+package com.gabriel.trackcrud.domain;
 
 import jakarta.persistence.*;
 import lombok.Getter;
